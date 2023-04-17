@@ -1,0 +1,21 @@
+<template>
+    <lightning-card title="Create Account With Contact" icon-name="standard:contact">
+      
+        <div class="form-group">
+            <lightning-input label="Enter Last Name" name="accName" required="required" type="text"  onchange={handleNameChange}></lightning-input>
+        </div>
+        <div class="slds-m-around_medium">
+            <select class="slds-select" onchange={AccountIdFetch}>
+            <option>Select Account</option>
+            <template for:each ={acc} for:item="item">
+            <option key={item.Id} value={item.Id}>{item.Name}</option>
+            </template>
+            </select>
+            </div>
+        
+    <div>
+            <lightning-button label="submit" onclick={forSubmit}></lightning-button>
+        </div>
+     
+</lightning-card>
+</template>

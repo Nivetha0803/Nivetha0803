@@ -1,0 +1,90 @@
+<template>
+    <!--lightning-card  title="TRUST FUND TRACKER FORM " icon-name="custom:custom15" size="large">
+        <div class="slds-grid slds-wrap"  style="background: #ecf0f0; color:rgba(0, 0, 0, 0.99); border:1px #f7f4f4 solid; padding:10px; font-size:small">
+            <div class="slds-col slds-size_6-of-12 slds-p-horizontal_medium">
+                <lightning-record-form object-api-name={objectApiName} 
+                record-id={recordid} onsuccess={handleSuccess}> 
+                 <lightning-accordion allow-multiple-sections-open class="example-accordion slds-grid slds-gutters"
+                        active-section-name={activeSections}>
+             
+                        <template class="slds-col slds-size_1-of-2" for:each={Trust_Fund_Tracker__c} for:item="accordion_item">
+                            <lightning-accordion-section key={accordion_item.label} name={accordion_item.label}
+                                label={accordion_item.label}>
+                                <template for:each={accordion_item.fields} for:item="fieldFromSubsection">
+                                    <lightning-input-field key={fieldFromSubsection} field-name={fieldFromSubsection}>
+                                    </lightning-input-field>
+                                </template>
+                            </lightning-accordion-section>
+                        </template>
+                    </lightning-accordion>
+             
+            </lightning-record-form>
+            </div>
+            </div>
+            </lightning-card-->
+            
+            
+            
+            
+            <lightning-card  title="TRUST FUND TRACKER FORM " icon-name="custom:custom15" size="large">
+                <div class="slds-grid slds-wrap"  style="background: #ecf0f0; color:rgba(0, 0, 0, 0.99); border:1px #f7f4f4 solid; padding:10px; font-size:small">
+                    <div class="slds-col slds-size_6-of-12 slds-p-horizontal_medium">
+
+                <lightning-record-edit-form object-api-name={objectApiName} onsuccess={handleSuccess} record-id={recordId} layout-type="2">
+                    <lightning-messages>
+                    </lightning-messages>
+                    <lightning-accordion allow-multiple-sections-open class="example-accordion slds-grid slds-gutters"
+                        active-section-name={activeSections}>
+             
+                        <template class="slds-col slds-size_1-of-2" for:each={Trust_Fund_Tracker__c} for:item="accordion_item">
+                            <lightning-accordion-section key={accordion_item.label} name={accordion_item.label}
+                                label={accordion_item.label}>
+                                <template for:each={accordion_item.fields} for:item="fieldFromSubsection">
+                                    <lightning-input-field key={fieldFromSubsection} field-name={fieldFromSubsection}>
+                                    </lightning-input-field>
+                                </template>
+                            </lightning-accordion-section>
+                        </template>
+                    </lightning-accordion>
+             
+                    <div class="slds-align_absolute-center">
+                        <lightning-button label="Cancel" title="Cancel" onclick={handleCancel} class="slds-m-left_x-small">
+                        </lightning-button>
+                        <lightning-button type="submit" variant="brand" label="Save" title="Save" class="slds-m-left_x-small">
+                        </lightning-button>
+                    </div>
+                </lightning-record-edit-form>
+
+              
+              
+              
+                <!--template if:true={saveRecord}> 
+                    <lightning-record-edit-form object-api-name={objectApiName} onsuccess={handleSuccess} record-id={recordId} layout-type="2">
+                        <lightning-messages>
+                        </lightning-messages>
+                        <lightning-accordion allow-multiple-sections-open class="example-accordion slds-grid slds-gutters"
+                            active-section-name={activeSections}>
+                 
+                            <template class="slds-col slds-size_1-of-2" for:each={trustFundList} for:item="trustFundTracker">
+                                <lightning-accordion-section key={accordion_item.label} name={accordion_item.label}
+                                    label={accordion_item.label}>
+                                    <template for:each={accordion_item.fields} for:item="fieldFromSubsection">
+                                        <lightning-input-field key={fieldFromSubsection} field-name={fieldFromSubsection}>
+                                        </lightning-input-field>
+                                    </template>
+                                </lightning-accordion-section>
+                            </template>
+                        </lightning-accordion>
+                 
+                        <div class="slds-align_absolute-center">
+                            <lightning-button label="Cancel" title="Cancel" onclick={handleCancel} class="slds-m-left_x-small">
+                            </lightning-button>
+                            <lightning-button onclick={saveRecord} variant="brand" label="Update" class="slds-m-left_x-small">
+                            </lightning-button>
+                        </div>
+                    </lightning-record-edit-form>
+                </template-->
+                    </div>
+                </div>
+            </lightning-card>
+</template>

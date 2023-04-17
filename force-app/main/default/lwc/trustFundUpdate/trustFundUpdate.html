@@ -1,0 +1,85 @@
+<template>
+
+    <lightning-card  title="TRUST FUND TRACKER Update " icon-name="custom:custom15" size="large">
+        <!--div class="slds-grid slds-wrap"  style="background: #ecf0f0; color:rgba(0, 0, 0, 0.99); border:1px #f7f4f4 solid; padding:10px; font-size:small">
+            <div class="slds-col slds-size_6-of-12 slds-p-horizontal_medium">
+  
+                    <lightning-input name="HSGType"  onchange={handlechange}></lightning-input>
+                    <lightning-input name="month"  onchange={handlechange}></lightning-input>
+
+                    <lightning-input name="year "  onchange={handlechange}></lightning-input>
+
+                    <lightning-input field="grossWages"  onchange={handlechange}></lightning-input>
+                    <lightning-input field="hours"  onchange={handlechange}></lightning-input>
+
+               <p>HSG Type:{HSGType}</p>
+               <p>Month:{month}</p>
+               <p>Year:{year}</p>
+               <p>Gross wages:{grossWages}</p>
+               <p>Hours Reported:{hours}</p>
+               
+               <div class="slds-align_absolute-center">
+                <lightning-button label="Cancel" title="Cancel" onclick={handleCancel} class="slds-m-left_x-small">
+                </lightning-button>
+                <lightning-button type="submit" variant="brand" label="Save" title="Save" class="slds-m-left_x-small">
+                </lightning-button>
+          
+            </div>
+            </div>
+            </div-->
+
+            <template if:true={editMode}>
+            <div class="slds-grid slds-wrap"  style="background: #ecf0f0; color:rgba(0, 0, 0, 0.99); border:1px #f7f4f4 solid; padding:10px; font-size:small">
+            <div class="slds-col slds-size_6-of-12 slds-p-horizontal_medium">
+                <lightning-record-edit-form object-api-name={objectApiName} onsuccess={saveRecord} record-id={recordId} >
+                <lightning-combobox name="hsgType" label="HSG Type" value={value} options={options}
+                onchange={handleChange} ></lightning-combobox>
+                <lightning-combobox name="month" label="Month" value={value} options={values}
+                onchange={handleChange} record-id={recordId}></lightning-combobox>
+              <lightning-input type="text" variant="standard" name="year"  label="Year"  onchange={handleChange}></lightning-input>
+             <lightning-input type="number" variant="standard" name="grossWages" label="Gross Wages" onchange={handleChange} ></lightning-input>
+            <lightning-input type="number" variant="standard" name="hours" label="Hours Reported" onchange={handleChange} ></lightning-input>
+                
+            <div class="slds-align_absolute-center slds-p-around_medium">
+                <lightning-button class="slds-m-around_xx-small" label="Cancel" title="Cancel" onclick={handleCancel}>
+                </lightning-button>
+                <lightning-button class="slds-m-around_xx-small" onclick={saveRecord} variant="brand" label="Save" title="Save" >
+                </lightning-button>
+          
+            </div>
+        </lightning-record-edit-form>
+    </div>
+</div>
+</template>
+        
+        
+
+<template if:true={saveMode}>
+                    <div class="slds-grid slds-wrap"  style="background: #ecf0f0; color:rgba(0, 0, 0, 0.99); border:1px #f7f4f4 solid; padding:10px; font-size:small">
+                        <div class="slds-col slds-size_6-of-12 slds-p-horizontal_medium">
+                            <template for:each={trustFundList} for:item="trustFund">
+                                <div class="slds-box slds-var-m-around_medium" key={trustFund.Id}>  
+                                    <p>:{trustFund.recordId}</p> 
+                                    <lightning-combobox name="HSG Type" label="HSG Type" value={trustFund.tracker_hsg_type__c} options={options}></lightning-combobox>
+                                    <lightning-combobox name="Month" label="Month" value={trustFund.tracker_month__c} options={values}></lightning-combobox>
+                                    <lightning-input type="text" variant="standard" name="Year"  label="Year" value={trustFund.tracker_year__c} onchange={handleChange}></lightning-input>
+                                    <lightning-input type="number" variant="standard" name="grossWages" label="Gross Wages" onchange={handleChange} ></lightning-input>
+                                   <lightning-input type="number" variant="standard" name="hours" label="Hours Reported" onchange={handleChange} ></lightning-input>
+                                   
+                                         </div>
+                                        </template>
+            <div class="slds-align_absolute-center slds-p-around_medium">
+                <lightning-button class="slds-m-around_xx-small" label="Cancel" title="Cancel" onclick={handleCancel}>
+                </lightning-button>
+                <lightning-button class="slds-m-around_xx-small" onclick={editRecord} variant="brand" label="Update" title="Save" >
+                </lightning-button>
+          
+            </div>
+
+                           
+                </div>
+            </div>
+                </template>
+            </lightning-card>
+       
+</template>

@@ -1,0 +1,299 @@
+<template>
+<div class="header">
+  <div class="slds-align_absolute-center" style="font-size:20px;font-weight:bold;position:relative;top:3rem;">CREATE FUNERAL CLAIM</div>
+  <img src={ATULogo} style="height: 120px;width:120px; position:relative;left:30px;bottom:25px;"/>
+  <lightning-button label="Recent Claims" onclick={getRecords} style="margin-left:600px;" class="slds-m-left_x-small"></lightning-button>
+</div>
+<lightning-card>
+<div style="position:relative;bottom:10px;">
+   <lightning-record-edit-form object-api-name= "Claims__c"  density="compact" onsuccess={handleSuccess}>
+   <lightning-accordion class="example-accordion"
+       allow-multiple-sections-open
+       active-section-name={activeSections}>
+   <lightning-accordion-section name="A" label="Funeral Claims Information Section" >
+<div class="slds-grid slds-wrap slds-p-around--medium">
+  <div class="slds-col slds-size_6-of-12 slds-p-horizontal_medium" >
+  <lightning-input-field field-name="Benefit_Type__c" value={benefitType} onchange={BenefitChange}></lightning-input-field>
+</div>
+<!--div class="slds-col slds-size_6-of-12 slds-p-horizontal_medium" >
+<lightning-input-field field-name="Member__c" value={member} ></lightning-input-field>
+</div-->
+<div class="slds-col slds-size_6-of-12 slds-p-horizontal_medium" >
+  <lightning-input-field field-name="Claim_Status__c" value={Claimsts} onchange={ClaimstsChange}></lightning-input-field>
+</div>
+<div class="slds-col slds-size_6-of-12 slds-p-horizontal_medium" >
+  <lightning-input-field field-name="Member_Region__c" value={MemRegion} onchange={MemRegChange}></lightning-input-field>
+</div>
+<div class="slds-col slds-size_6-of-12 slds-p-horizontal_medium" >
+  <lightning-input-field field-name="Bank_Account__c" value={BankAcc} onchange={BankAccChange}></lightning-input-field>
+</div>
+<div class="slds-col slds-size_6-of-12 slds-p-horizontal_medium" >
+  <lightning-input-field field-name="Check_Amount__c" value={CheckAmt} onchange={CheckAmtChange}></lightning-input-field>
+</div>
+<!--div class="slds-col slds-size_6-of-12 slds-p-horizontal_medium" >
+<lightning-input-field field-name="Death_Certificate_Received__c" value={deathCert}></lightning-input-field>
+</div>
+<div class="slds-col slds-size_6-of-12 slds-p-horizontal_medium" >
+<lightning-input-field field-name="Claim_Received_Date__c" value={claimRecvd}></lightning-input-field>
+</div-->
+</div>
+
+</lightning-accordion-section>
+<lightning-accordion-section name="B" label="Check List Information Section">
+
+<div class="slds-grid slds-wrap slds-p-around--medium">
+
+<div class="slds-col slds-size_6-of-12 slds-p-horizontal_medium" >
+  <lightning-input-field field-name="Funeral_Bill__c" value={FunBills} onchange={FunBillChange}></lightning-input-field>
+</div>
+<div class="slds-col slds-size_6-of-12 slds-p-horizontal_medium" >
+  <lightning-input-field field-name="Additional_Bills__c" value={AddBills} onchange={AddBillsChange}></lightning-input-field>
+</div>
+<div class="slds-col slds-size_6-of-12 slds-p-horizontal_medium">
+  <lightning-input-field field-name="Signatures__c" value={Sign} onchange={SignChange}></lightning-input-field>
+</div>
+<!--div class="slds-col slds-size_6-of-12 slds-p-horizontal_medium">
+<lightning-input-field field-name="Local_Union_Seal__c" value={locUnion}></lightning-input-field>
+</div-->
+</div>
+</lightning-accordion-section>
+</lightning-accordion>
+</lightning-record-edit-form>
+</div>
+<footer class="slds-modal__footer" style="position:relative;top:10.5px;">
+  <div class="slds-m-top_large slds-grid slds-grid_align-center slds-align–absolute-center">
+    <lightning-button label="Cancel" variant="neutral" type="cancel" ></lightning-button><br/><br/>
+    <lightning-button label="Save & New" variant="neutral" onclick={saveNewAction} style="position:relative;left:10px;"></lightning-button><br/><br/>
+    <lightning-button label="Save" variant="brand" onclick={saveClaimAction} style="position:relative;left:20px;"></lightning-button>
+  </div>
+</footer>
+</lightning-card>
+
+<!-- This template will render when click the Search records button and fetch the records-->
+
+<template if:true={isShowModal}>
+   <section role="dialog" tabindex="-1" aria-labelledby="modal-heading-01" aria-modal="true" aria-describedby="modal-content-id-1" class="slds-modal slds-fade-in-open slds-modal_medium">
+   <div class="slds-modal__container">
+<!-- modal header start -->
+<header class="slds-modal__header">
+<button class="slds-button slds-button_icon slds-modal__close slds-button_icon-inverse" title="Close" onclick={hideModalBox}>
+<lightning-icon icon-name="utility:close"
+alternative-text="close"
+variant="inverse"
+size="small" ></lightning-icon>
+<span class="slds-assistive-text">Close</span>
+</button>
+<div class="slds-modal__header">
+  <img src={ATULogo} style="height: 100px;width:100px;position:relative;bottom:23px;"/>
+  <h2 id="modal-heading-01" class="slds-modal__title slds-text-heading_large slds-hyphenate" style="font-size: 1.50rem;font-weight: bold;color: #000058;position:relative;bottom:5px;">RECENT CLAIMS</h2>
+</div>              
+<div class="slds slds-p-horizontal--medium">
+  <div class="slds-grid slds-wrap">
+      <div class="slds-col slds-size_6-of-12 slds-m-top--medium" style="position:relative;left:600px;top:10px;">
+      <lightning-button label="Search Records" size="small" variant="brand" onclick={fetchRecords} icon-name="utility:search" icon-position="right"></lightning-button>
+  </div>
+</div>
+ </div>
+<div class="slds-form slds-form_horizontal slds-form_edit">
+   <div class="slds-form__row">
+      <label class="slds-form-element__label" for="input-id" style="position:relative;left:60px;font-weight:bold;font-size:15px;">From Date</label>
+      <div class="slds-form-element__control">
+<!--input type="text" id="input-id" class="slds-input" /-->
+<lightning-input type="date" name="FromDate" label="From Date" style="font-weight: bold; float: left;" variant="label-hidden" value={FromDate_Ref} onchange={handleFromDateChange}></lightning-input>
+</div>
+<label class="slds-form-element__label" for="input-2" style="position:relative;left:60px;font-weight:bold;font-size:15px;">To Date</label>
+<div class="slds-form-element__control">
+<lightning-input type="date" name="ToDate" label="To Date" style="font-weight: bold; float: left;" variant="label-hidden" value={ToDate_Ref} onchange={handleToDateChange}></lightning-input>
+</div>
+</div>
+</div>
+</header>
+
+
+<div class="slds-table_header-fixed-container">
+    <table class="slds-table slds-table_bordered slds-table_cell-buffer tableStyle">
+        <thead>
+            <tr class="slds-line-height_reset">
+                <th class="slds-cell-wrap" scope="col" style="width:11.51rem;">
+                    <div class="slds-truncate" title="Name">Name</div>
+                </th>
+                <th class="slds-cell-wrap" scope="col" style="width:11.6rem;">
+                    <div class="slds-truncate" title="Benefit Type">Benefit Type</div>
+                </th>
+                <th class="slds-cell-wrap" scope="col" style="width:11.58rem;">
+                    <div class="slds-truncate" title="Claim Status">Claim Status</div>
+                </th>
+                <th class="slds-cell-wrap" scope="col" style="width:11.6rem;">
+                    <div class="slds-truncate" title="Funeral Bill">Funeral Bill</div>
+                </th>
+                <th class="slds-cell-wrap" scope="col">
+                    <div class="slds-truncate" title="Member Country">Member Country</div>
+                </th>
+            </tr>
+        </thead>
+    </table>
+    <div class="showModal">
+        <table class="slds-table slds-table_bordered slds-table_cell-buffer tableStyle">
+            <tbody>
+                <template for:each={claimList} for:item="claim">
+                    <tr key={claim.Id} class="slds-hint-parent">
+                    
+                        <td class="slds-cell-wrap" data-label="Name">
+                            <div class="slds-truncate" title={claim.Name}>{claim.Name}</div>
+                        </td>
+                        <td class="slds-cell-wrap" data-label="Benefit Type">
+                            <div class="slds-truncate" title={claim.Benefit_Type__c}>{claim.Benefit_Type__c}</div>
+                        </td>
+                        <td class="slds-cell-wrap" data-label="Claim Status">
+                            <div class="slds-truncate" title={claim.Claim_Status__c}>{claim.Claim_Status__c}</div>
+                        </td>
+                        <td class="slds-cell-wrap" data-label="Funeral Bill">
+                            <div class="slds-truncate" title={claim.Funeral_Bill__c}>{claim.Funeral_Bill__c}</div>
+                        </td>
+                        <td class="slds-cell-wrap" data-label="Member Country">
+                            <div class="slds-truncate" title={claim.Member_Region__c}>{claim.Member_Region__c}</div>
+                        </td>
+                    </tr>
+                </template>
+            </tbody>
+        </table>
+    </div>
+</div>
+<!--div class="slds-table--header-fixed_container" style="height:20rem;">
+    <div class="slds-scrollable_y" style="height:100%;">
+        <table class="slds-table slds-table_cell-buffer slds-table_bordered slds-table_col-bordered tableStyle slds-table--header-fixed">
+<thead>
+<tr class="slds-line-height_reset slds-text-title_caps">
+<th class="" scope="col"><div class="slds-truncate" title="Name">Name</div></th>
+<th class="" scope="col"><div class="slds-truncate" title="Benefit Type">Benefit Type</div></th>
+<th class="" scope="col"><div class="slds-truncate" title="Claim Status">Claim Status</div></th>
+<th class="" scope="col"><div class="slds-truncate" title="Funeral Bill">Funeral Bill</div></th>
+<th class="" scope="col"><div class="slds-truncate" title="Member Country">Member Country</div></th>
+</tr>
+</thead>
+<tbody>                        
+<template for:each={claimList} for:item="claim">
+<tr key={claim.Id} class="slds-line-height_reset">
+<td class="" data-label="Name"><div class="slds-truncate" title={claim.Name}>{claim.Name}</div></td>
+<td class="" data-label="Benefit Type"><div class="slds-truncate" title={claim.Benefit_Type__c}>{claim.Benefit_Type__c}</div></td>
+<td class="" data-label="Claim Status"><div class="slds-truncate" title={claim.Claim_Status__c}>{claim.Claim_Status__c}</div></td>
+<td class="" data-label="Funeral Bill"><div class="slds-truncate" title={claim.Funeral_Bill__c}>{claim.Funeral_Bill__c}</div></td>
+<td class="" data-label="Member Country"><div class="slds-truncate" title={claim.Member_Region__c}>{claim.Member_Region__c}</div></td>
+
+</tr>
+</template>                           
+</tbody>
+</table>
+</div>
+</div-->
+<!-- modal footer start-->
+<footer class="slds-modal__footer">
+<button class="slds-button slds-button_neutral" onclick={hideModalBox}>Cancel</button>
+</footer>
+</div>
+</section>
+<div class="slds-backdrop slds-backdrop_open"></div>
+</template>
+
+
+<!--This template will render when click the Recent Claim button in the create funeral claim LWC Component-->
+<!--modified-->
+<template if:true={isOpenModal}>
+<section role="dialog" tabindex="-1" aria-labelledby="modal-heading-01" aria-modal="true" aria-describedby="modal-content-id-1" class="slds-modal slds-fade-in-open slds-modal_medium">
+<div class="slds-modal__container">
+<!-- modal header start -->
+<header class="slds-modal__header">
+<button class="slds-button slds-button_icon slds-modal__close slds-button_icon-inverse" title="Close" onclick={hideModalBox}>
+<lightning-icon icon-name="utility:close"
+alternative-text="close"
+variant="inverse"
+size="small" ></lightning-icon>
+<span class="slds-assistive-text">Close</span>
+</button>
+
+<div class="slds-modal__header">
+<img src={ATULogo} style="height: 100px;width:100px;position:relative;bottom:23px;"/>
+<h2 id="modal-heading-02" class="slds-modal__title slds-text-heading_large slds-hyphenate" style="font-size: 1.50rem;font-weight: bold;color: #000058;position:relative;bottom:5px;">RECENT CLAIMS</h2>
+</div>  
+<div class="slds slds-p-horizontal--medium">
+<div class="slds-grid slds-wrap">
+<div class="slds-col slds-size_6-of-12 slds-m-top--medium" style="position:relative;left:600px;top:10px;">
+<lightning-button label="Search Records" size="small" variant="brand" onclick={fetchRecords} icon-name="utility:search" icon-position="right"></lightning-button>
+</div>
+</div>
+</div>
+<div class="slds-form slds-form_horizontal slds-form_edit">
+<div class="slds-form__row">
+<label class="slds-form-element__label" for="input-id" style="position:relative;left:60px;font-weight:bold;font-size:15px;">From Date</label>
+<div class="slds-form-element__control">
+<!--input type="text" id="input-id" class="slds-input" /-->
+<lightning-input type="date" name="FromDate" label="From Date" style="font-weight: bold; float: left;" variant="label-hidden" value={FromDate_Ref} onchange={handleFromDateChange}></lightning-input>
+
+</div>
+<label class="slds-form-element__label" for="input-2" style="position:relative;left:60px;font-weight:bold;font-size:15px;">To Date</label>
+<div class="slds-form-element__control">
+<lightning-input  type="date" name="ToDate" label="To Date" style="font-weight: bold; float: left;" variant="label-hidden" value={ToDate_Ref} onchange={handleToDateChange}></lightning-input>
+</div>
+</div>
+</div>
+</header>
+
+<div class="slds-table_header-fixed-container">
+    <table class="slds-table slds-table_bordered slds-table_cell-buffer tableStyle">
+        <thead>
+            <tr class="slds-line-height_reset">
+                <th class="slds-cell-wrap" scope="col" style="width:11.8rem;">
+                    <div class="slds-truncate" title="Name">Name</div>
+                </th>
+                <th class="slds-cell-wrap" scope="col" style="width:11.75rem;">
+                    <div class="slds-truncate" title="Benefit Type">Benefit Type</div>
+                </th>
+                <th class="slds-cell-wrap" scope="col" style="width:11.8rem;">
+                    <div class="slds-truncate" title="Claim Status">Claim Status</div>
+                </th>
+                <th class="slds-cell-wrap" scope="col" style="width:11.75rem;">
+                    <div class="slds-truncate" title="Funeral Bill">Funeral Bill</div>
+                </th>
+                <th class="slds-cell-wrap" scope="col">
+                    <div class="slds-truncate" title="Member Country">Member Country</div>
+                </th>
+            </tr>
+        </thead>
+        </table>
+        <div class="slds-table_body-container" style="overflow-y: scroll;">
+            <table class="slds-table slds-table_bordered slds-table_cell-buffer tableStyle">
+                
+<tbody>                        
+<template for:each={claimList} for:item="claim">
+<tr key={claim.Id} class="slds-hint-parent">
+    <td class="slds-cell-wrap" data-label="Name">
+        <div class="slds-truncate" title={claim.Name}>{claim.Name}</div>
+    </td>
+    <td class="slds-cell-wrap" data-label="Benefit Type">
+        <div class="slds-truncate" title={claim.Benefit_Type__c}>{claim.Benefit_Type__c}</div>
+    </td>
+    <td class="slds-cell-wrap" data-label="Claim Status">
+        <div class="slds-truncate" title={claim.Claim_Status__c}>{claim.Claim_Status__c}</div>
+    </td>
+    <td class="slds-cell-wrap" data-label="Funeral Bill">
+        <div class="slds-truncate" title={claim.Funeral_Bill__c}>{claim.Funeral_Bill__c}</div>
+    </td>
+    <td class="slds-cell-wrap" data-label="Member Country">
+        <div class="slds-truncate" title={claim.Member_Region__c}>{claim.Member_Region__c}</div>
+    </td>
+</tr>
+</template>                           
+</tbody>
+</table>
+</div>
+</div>
+<!-- modal footer start-->
+<footer class="slds-modal__footer">
+<button class="slds-button slds-button_neutral" onclick={hideModalBox}>Cancel</button>
+</footer>
+</div>
+</section>
+<div class="slds-backdrop slds-backdrop_open"></div>
+</template>
+
+</template>

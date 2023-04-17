@@ -1,0 +1,13 @@
+<apex:page standardController="Contact" recordSetVar="contacts">
+    <apex:pageBlock >
+     <h1 style="color:red">Show Contact List</h1>
+       <apex:form >
+           <apex:pageBlockSection columns="1"> 
+             <apex:inputField value="{!Contact.FirstName}"></apex:inputField>  <br/>
+              <apex:inputField value="{!Contact.LastName}"></apex:inputField>  <br/>
+                <apex:inputField value="{!Contact.Phone}"></apex:inputField>  <br/>
+           </apex:pageBlockSection>
+       
+        </apex:form>
+             </apex:pageBlock>
+</apex:page>

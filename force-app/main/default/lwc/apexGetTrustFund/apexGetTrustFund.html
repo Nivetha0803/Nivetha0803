@@ -1,0 +1,36 @@
+<template>
+    <lightning-card title="Get Trust Details" icon-name="custom:custom63">
+       <div class="slds-var-m-around_medium">
+
+        <lightning-button label="Get Records" variant="brand" onclick={handleClick}></lightning-button>
+       
+            <template for:each={trustFundList} for:item="trustFund">
+                <div class="slds-box slds-var-m-around_medium" key={trustFund.Id}>   
+                    <p>HSG Type:{trustFund.tracker_hsg_type__c}</p>
+                    <p>Month:{trustFund.tracker_month__c}</p>
+                    <p>Year:{trustFund.tracker_year__c}</p>
+                    <p>Gross Wages:{trustFund.tracker_monthly_gross_wages__c}</p>
+                    <p>Hours Reported:{trustFund.tracker_hours__c}</p>
+    
+
+
+</div>
+
+            </template>
+           
+       </div>
+       
+        <!--template if:true={trustFund.data}>
+            <div class="slds-m-around_medium">
+                <p>{grossWages}</p>
+                <p>{hsgType}</p>
+                <p>{month}</p>
+                <p>{year}</p>
+                <p>{hours}</p>
+            </div>
+        </template-->
+        
+    </lightning-card> 
+
+    <!--lightning-datatable data={trustFundList} columns={columns} key-field="id"></lightning-datatable-->
+</template>

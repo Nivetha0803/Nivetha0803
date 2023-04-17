@@ -1,0 +1,99 @@
+<apex:page standardController="Members__c" extensions="CreateClaimController"  sidebar="false" lightningStylesheets="true" docType="html-5.0"  >
+
+     <head>
+        <style type="text/css">
+            .italicText 
+            { 
+            font-size:15pt;
+            font-family:Raleway, sans-serif;
+            font-weight: bold;
+            color: Nero
+            }
+            span.italicText
+            { 
+            text-align: center;
+            font-family: 'Raleway';
+            font-weight: 600;
+            letter-spacing: 0.1em;
+            }
+            input.btn{
+            color: #fff !important;
+            padding: 7px 47px !important;
+            background: #3495b2 !important;
+            border-radius: 0px !important;
+            font-weight: 900 !important;
+            text-transform: uppercase;
+            vertical-align: baseline;
+            }
+            input.btn:hover {
+            background: #b09a51 !important;
+            transition: .3s all ease-in;
+            }
+            body .pbBody, .slds-vf-scope .pbBody {
+            background-color: #f6f6f6;
+            padding-bottom: 30px;
+            }
+            body .pbSubsection, .slds-vf-scope .pbSubsection {
+            background-color: #f6f6f6;
+            }
+            body .pbSubsection > .detailList:first-child, .slds-vf-scope .pbSubsection > .detailList:first-child {
+            background-color: #f6f6f6;
+            }
+            body .bPageBlock.apexDefaultPageBlock, body .bPageBlock.bDetailBlock, body .bPageBlock.bEditBlock, .slds-vf-scope .bPageBlock.apexDefaultPageBlock, .slds-vf-scope .bPageBlock.bDetailBlock, .slds-vf-scope .bPageBlock.bEditBlock {
+            padding: 0.5rem 0.75rem;
+            background-color: #f6f6f6;
+            }
+            body .bPageBlock .pbSubheader, .slds-vf-scope .bPageBlock .pbSubheader{
+            background-color: #FFFFFF;
+            }
+            
+        </style>
+    </head>
+    
+    
+    <apex:form id="theForm1" style="border-style:solid;border-width:3px;
+                                    border-color:black;background-image:linear-gradient(to right, #ffffff , #ffffff);margin-left:0px" ><!--;-->
+        <apex:pageBlock id="Pb">
+            
+            <p align="Left">
+                <apex:image id="theImage" value="{!$Resource.ATU_Logo}" width="130" style="background-color:#f6f6f6;"/><br/><br/>
+            </p>
+            <p style="margin-bottom:0;text-align:center;position:relative;bottom:85px;"><apex:outputText styleClass="italicText" value="CREATE FUNERAL CLAIM" ></apex:outputText></p> <br/><br/>
+            
+            <apex:pageBlockSection title="Funeral Claims Information Section" columns="2" id="cl1">
+                <apex:inputField value="{!claimObj.Benefit_Type__c}"/>
+                <apex:inputField value="{!claimObj.Claim_Status__c}"/> 
+                <apex:outputField value="{!Members__c.Member_Full_Name__c}"/>
+                <apex:inputField value="{!claimObj.Member_Region__c}" >
+                <apex:actionSupport action="{!changeField}" event="onchange" reRender="abc" />
+                </apex:inputField>
+                <!--apex:outputField value="{!Members__c.Locals__c}"/-->
+                <apex:inputField value="{!claimObj.Bank_Account__c}" id="abc"/>
+                <!--apex:outputField value="{!Members__c.Locals_Number__c}"/-->
+                <!--apex:inputField value="{!claimObj.Date_of_Death__c}"/-->
+                <apex:inputField value="{!claimObj.Check_Amount__c}"/>
+                <apex:inputField value="{!claimObj.Death_Certificate_Received__c}"/>
+                <apex:inputField value="{!claimObj.Claim_Received_Date__c}"/>
+                
+            </apex:pageBlockSection>
+            
+            <apex:pageBlockSection title="Check List Information Section"  columns="2">
+                <apex:inputField value="{!claimObj.Funeral_Bill__c}"/>
+                <apex:inputField value="{!claimObj.Additional_Bills__c}"/>
+                <apex:inputField value="{!claimObj.Signatures__c}"/>
+                <!--apex:inputField value="{!claimObj.Notary__c}"/-->
+                <apex:inputField value="{!claimObj.Local_Union_Seal__c}"/>
+                <!--apex:inputField value="{!claimObj.Other__c}"/-->
+                <!--apex:inputField value="{!claimObj.Other_Description__c}"/-->
+            </apex:pageBlockSection>
+            
+            <apex:pageBlockButtons location="bottom" >
+                <div align="center" draggable="false">  
+                    <apex:commandButton value="Cancel" action="{!doCancel}" immediate="true" />
+                    <apex:commandButton Value="Save" action="{!saveBeneficiary}" />
+                    <!--apex:commandButton Value="Save & New" action="{!saveNewBeneficiary}" /-->
+                  </div>
+            </apex:pageBlockButtons>
+        </apex:pageBlock>
+    </apex:form>
+</apex:page>

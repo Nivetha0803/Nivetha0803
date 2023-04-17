@@ -1,0 +1,93 @@
+.header
+{
+position: relative;
+    border-bottom: var(--slds-c-modal-sizing-border,var(--sds-c-modal-sizing-border,2px)) solid var(--slds-c-modal-color-border,var(--sds-c-modal-color-border,var(--slds-g-color-border-base-1,#e5e5e5)));
+    background-color: var(--slds-c-modal-header-color-background,var(--sds-c-modal-header-color-background,var(--slds-c-modal-color-background,var(--sds-c-modal-color-background,var(--slds-g-color-neutral-base-100,#fff)))));
+    color: var(--slds-c-modal-header-text-color,var(--sds-c-modal-header-text-color,var(--sds-c-modal-text-color)));
+ 
+    
+    }
+
+
+    .tableStyle{
+        border-collapse: collapse;
+        border: 2px solid #d0d0d0;
+        text-align: center;
+    }
+    .tableStyle td, .tableStyle th {
+        border: 2px solid #d0d0d0;
+        padding: 0.5rem;
+        text-align: center;
+    }
+    .header-hw-cls {
+        height: 2rem;
+        width: 7%;
+     }
+
+     .slds-table_header-fixed-container {
+        position: relative;
+        height: auto;
+    }
+    
+    .slds-table_header-fixed-container table {
+        width: 100%;
+        table-layout: fixed;
+        
+    }
+    
+    .slds-table_header-fixed-container thead {
+        position: sticky;
+        top: 0;
+        z-index: 1;
+        background-color: #f2f2f2;
+    }
+    
+    .slds-table_body-container {
+        overflow-y: scroll;
+       /* height: 200px;/* set the height of the table body */
+        /*height: auto;*/
+        /*position:relative;
+        height: auto;*/
+    }
+    
+    .slds-table_cell-buffer {
+        padding: 0.5rem 0.75rem;
+        text-align: center;
+    }
+    
+    .slds-hint-parent:hover {
+        background-color: #f4f6f9;
+    }
+    
+    
+  
+
+   .showModal{
+        overflow-y: scroll;
+        height: 120px;
+    }
+
+
+
+
+
+
+     /* .slds-table_header-fixed-container[c-createClaim_createClaim] {
+        position: relative;
+        height: auto !important;
+       
+    }
+
+    .slds-table_body-container[c-createClaim_createClaim][c-createClaim_createClaim] {
+        overflow-y: scroll;
+        height: 300px;
+    }
+
+    .slds-table_body-container[c-createClaim_createClaim] {
+        overflow-y: scroll;
+        height: auto !important;
+    }
+    .slds-table_header-fixed-container[c-createClaim_createClaim] {
+        position: relative;
+        height: auto !important;
+    }*/
